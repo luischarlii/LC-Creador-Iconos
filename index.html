@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CapKut SVG Vector Icon Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Satisfy&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #030712;
+      color: #f3f4f6;
+    }
+    .satisfy-font {
+      font-family: 'Satisfy', cursive;
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0b0f19;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1f293d;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #374151;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between bg-slate-950 text-slate-100">
+
+  <!-- Header -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50 px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center space-x-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-amber-400 p-0.5 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+        <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
+          <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+      </div>
+      <div>
+        <h1 class="text-xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-400 to-amber-300">
+          CapKut Vector Studio
+        </h1>
+        <p class="text-xs text-slate-400">Generador de Icono SVG Personalizable</p>
+      </div>
+    </div>
+
+    <!-- Top Action Buttons -->
+    <div class="flex items-center space-x-3">
+      <button id="copyBtn" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-semibold transition border border-slate-700 flex items-center space-x-2">
+        <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+        </svg>
+        <span>Copiar SVG</span>
+      </button>
+      <button id="downloadBtn" class="px-5 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white text-sm font-bold shadow-lg shadow-cyan-500/25 transition flex items-center space-x-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+        </svg>
+        <span>Descargar icon.svg</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    
+    <!-- Left Column: SVG Preview Display -->
+    <section class="lg:col-span-7 flex flex-col items-center justify-center bg-slate-900/50 border border-slate-800 rounded-2xl p-6 md:p-10 relative overflow-hidden backdrop-blur-sm min-h-[520px]">
+      
+      <!-- Subtle Background Glow -->
+      <div class="absolute -top-20 -left-20 w-72 h-72 bg-cyan-600/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-20 -right-20 w-72 h-72 bg-amber-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="w-full flex items-center justify-between mb-6">
+        <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Vector Render (512x512)
+        </span>
+        <div class="flex space-x-2">
+          <button id="bgDark" class="w-6 h-6 rounded-full bg-slate-950 border border-slate-700 hover:scale-110 transition" title="Fondo Oscuro"></button>
+          <button id="bgTransparent" class="w-6 h-6 rounded-full bg-slate-800 border border-slate-600 hover:scale-110 transition flex items-center justify-center text-[10px]" title="Modo Rejilla">🏁</button>
+        </div>
+      </div>
+
+      <!-- Live SVG Wrapper Container -->
+      <div id="svgContainer" class="w-full max-w-[420px] aspect-square flex items-center justify-center p-4 rounded-xl transition-all duration-300">
+        <!-- Live Generated SVG will be dynamically updated here -->
+      </div>
+
+      <p class="text-xs text-slate-500 mt-6 text-center">
+        Grafico vectorial estandarizado HD listo para favicons, marcas de agua, apps y avatares.
+      </p>
+    </section>
+
+    <!-- Right Column: Customization Controls & Raw Code Tabs -->
+    <section class="lg:col-span-5 flex flex-col space-y-6">
+      
+      <!-- Tab Controls -->
+      <div class="bg-slate-900/80 p-1.5 rounded-xl border border-slate-800 flex space-x-1">
+        <button id="tabControlsBtn" class="flex-1 py-2 px-4 rounded-lg text-xs font-bold transition bg-slate-800 text-cyan-400 shadow">
+          Ajustes
+        </button>
+        <button id="tabCodeBtn" class="flex-1 py-2 px-4 rounded-lg text-xs font-bold transition text-slate-400 hover:text-slate-200">
+          Codigo SVG
+        </button>
+      </div>
+
+      <!-- Controls Panel -->
+      <div id="controlsPanel" class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 space-y-5 backdrop-blur-sm">
+        
+        <h2 class="text-base font-bold text-slate-200 flex items-center gap-2">
+          <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+          </svg>
+          Personalización Estilística
+        </h2>
+
+        <!-- Color Accent Pickers -->
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1.5">Neon Anillo Primario</label>
+            <input type="color" id="neonPrimary" value="#00d2ff" class="w-full h-10 bg-slate-950 rounded-lg cursor-pointer border border-slate-800 px-1">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1.5">Neon Anillo Secundario</label>
+            <input type="color" id="neonSecondary" value="#0055ff" class="w-full h-10 bg-slate-950 rounded-lg cursor-pointer border border-slate-800 px-1">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1.5">Oro CapKut (Inicio)</label>
+            <input type="color" id="goldStart" value="#FFE259" class="w-full h-10 bg-slate-950 rounded-lg cursor-pointer border border-slate-800 px-1">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1.5">Oro CapKut (Final)</label>
+            <input type="color" id="goldEnd" value="#FFA751" class="w-full h-10 bg-slate-950 rounded-lg cursor-pointer border border-slate-800 px-1">
+          </div>
+        </div>
+
+        <!-- Toggle Elements -->
+        <div class="pt-2 border-t border-slate-800/80 space-y-3">
+          <label class="flex items-center justify-between text-xs font-semibold text-slate-300 cursor-pointer">
+            <span>Mostrar Corona Real</span>
+            <input type="checkbox" id="showCrown" checked class="w-4 h-4 accent-cyan-500 rounded">
+          </label>
+          <label class="flex items-center justify-between text-xs font-semibold text-slate-300 cursor-pointer">
+            <span>Mostrar Logo CapCut Emblema</span>
+            <input type="checkbox" id="showEmblem" checked class="w-4 h-4 accent-cyan-500 rounded">
+          </label>
+          <label class="flex items-center justify-between text-xs font-semibold text-slate-300 cursor-pointer">
+            <span>Mostrar Cinta de Película</span>
+            <input type="checkbox" id="showFilm" checked class="w-4 h-4 accent-cyan-500 rounded">
+          </label>
+          <label class="flex items-center justify-between text-xs font-semibold text-slate-300 cursor-pointer">
+            <span>Mostrar Iconos UI Redondos</span>
+            <input type="checkbox" id="showUIIcons" checked class="w-4 h-4 accent-cyan-500 rounded">
+          </label>
+        </div>
+
+        <!-- Glow Intensity Slider -->
+        <div class="pt-2 border-t border-slate-800/80">
+          <div class="flex justify-between text-xs font-semibold text-slate-400 mb-1.5">
+            <span>Intensidad de Neón</span>
+            <span id="glowVal">100%</span>
+          </div>
+          <input type="range" id="glowRange" min="20" max="200" value="100" class="w-full accent-cyan-400 bg-slate-950 h-2 rounded-lg cursor-pointer">
+        </div>
+
+        <!-- Reset Button -->
+        <button id="resetBtn" class="w-full py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold rounded-lg border border-slate-700 transition">
+          Restablecer Estilo Predeterminado
+        </button>
+
+      </div>
+
+      <!-- Code Panel (Hidden by Default) -->
+      <div id="codePanel" class="hidden bg-slate-900/60 border border-slate-800 rounded-2xl p-4 backdrop-blur-sm">
+        <textarea id="svgCodeArea" readonly class="w-full h-80 bg-slate-950 text-cyan-300 font-mono text-xs p-3 rounded-lg border border-slate-800 focus:outline-none resize-none leading-relaxed"></textarea>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-cyan-500 text-slate-950 font-bold px-4 py-3 rounded-xl shadow-2xl transition transform translate-y-20 opacity-0 flex items-center space-x-2 z-50">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+    </svg>
+    <span id="toastMsg">¡Código copiado al portapapeles!</span>
+  </div>
+
+  <!-- JavaScript Logic -->
+  <script>
+    // State Variables
+    const state = {
+      neonPrimary: '#00d2ff',
+      neonSecondary: '#0055ff',
+      goldStart: '#FFE259',
+      goldEnd: '#FFA751',
+      showCrown: true,
+      showEmblem: true,
+      showFilm: true,
+      showUIIcons: true,
+      glowIntensity: 100,
+      bgDark: true
+    };
+
+    // Elements
+    const svgContainer = document.getElementById('svgContainer');
+    const svgCodeArea = document.getElementById('svgCodeArea');
+    const toast = document.getElementById('toast');
+    const toastMsg = document.getElementById('toastMsg');
+
+    // Generate Raw SVG String
+    function generateSVG() {
+      const glowBlur = (8 * (state.glowIntensity / 100)).toFixed(1);
+      
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="bgGrad" cx="50%" cy="45%" r="65%">
+      <stop offset="0%" stop-color="#0a1630" />
+      <stop offset="60%" stop-color="#040914" />
+      <stop offset="100%" stop-color="#020408" />
+    </radialGradient>
+
+    <!-- Neon Ring Gradient -->
+    <linearGradient id="neonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="${state.neonPrimary}" />
+      <stop offset="50%" stop-color="#38ef7d" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="${state.neonSecondary}" />
+    </linearGradient>
+
+    <!-- Gold Text Gradient -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="20%" stop-color="${state.goldStart}" />
+      <stop offset="75%" stop-color="${state.goldEnd}" />
+      <stop offset="100%" stop-color="#B85B00" />
+    </linearGradient>
+
+    <!-- Gold Edge/Border Gradient -->
+    <linearGradient id="goldEdge" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFE259" />
+      <stop offset="50%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#FFA751" />
+    </linearGradient>
+
+    <!-- CapCut Cyan Gradient -->
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f2fe" />
+      <stop offset="100%" stop-color="#4facfe" />
+    </linearGradient>
+
+    <!-- Glow Filter -->
+    <filter id="neonGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="${glowBlur}" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Shadow Filter -->
+    <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.8" />
+    </filter>
+  </defs>
+
+  <!-- Background Circle base -->
+  <circle cx="256" cy="256" r="240" fill="url(#bgGrad)" stroke="#0f172a" stroke-width="4" />
+
+  <!-- Outer Neon Rings -->
+  <circle cx="256" cy="256" r="220" fill="none" stroke="${state.neonPrimary}" stroke-width="2.5" opacity="0.4" filter="url(#neonGlow)" />
+  <circle cx="256" cy="256" r="212" fill="none" stroke="url(#neonGrad)" stroke-width="6" filter="url(#neonGlow)" />
+
+  <!-- Decorative Rays / Lines in Background -->
+  <g opacity="0.15" stroke="${state.neonPrimary}" stroke-width="1.5">
+    <line x1="256" y1="44" x2="256" y2="468" />
+    <line x1="44" y1="256" x2="468" y2="256" />
+    <line x1="106" y1="106" x2="406" y2="406" />
+    <line x1="106" y1="406" x2="406" y2="106" />
+  </g>
+
+  ${state.showFilm ? `
+  <!-- Stylized Curved Film Strip (Left) -->
+  <g transform="translate(65, 230) rotate(-28)" opacity="0.75" filter="url(#dropShadow)">
+    <rect x="0" y="0" width="130" height="34" rx="6" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+    <!-- Film Holes Top -->
+    <rect x="8" y="4" width="8" height="6" rx="1" fill="#64748b"/>
+    <rect x="28" y="4" width="8" height="6" rx="1" fill="#64748b"/>
+    <rect x="48" y="4" width="8" height="6" rx="1" fill="#64748b"/>
+    <rect x="68" y="4" width="8" height="6" rx="1" fill="#64748b"/>
+    <rect x="88" y="4" width="8" height="6" rx="1" fill="#64748b"/>
+    <rect x="108" y="4" width="8" height="6" rx="1" fill="#64748b"/>
+    <!-- Film Holes Bottom -->
+    <rect x="8" y="24" width="8" height="6" rx="1" fill="#64748b"/>
+    <rect x="28" y="24" width="8" height="6" rx="1" fill="#64748b"/>
+    <rect x="48" y="24" width="8" height="6" rx="1" fill="#64748b"/>
+    <rect x="68" y="24" width="8" height="6" rx="1" fill="#64748b"/>
+    <rect x="88" y="24" width="8" height="6" rx="1" fill="#64748b"/>
+    <rect x="108" y="24" width="8" height="6" rx="1" fill="#64748b"/>
+  </g>
+  ` : ''}
+
+  ${state.showEmblem ? `
+  <!-- Stylized CapCut Scissor/Hourglass Logo Vector -->
+  <g transform="translate(256, 175) scale(1.15)" filter="url(#dropShadow)">
+    <!-- Right Blade/Trapezoid -->
+    <path d="M 10 -45 L 55 -15 L 40 25 L -5 -5 Z" fill="#FFFFFF" opacity="0.95" />
+    <!-- Left Blade/Trapezoid -->
+    <path d="M -10 -45 L -55 -15 L -40 25 L 5 -5 Z" fill="#FFFFFF" opacity="0.95" />
+    <!-- Bottom Right Connector -->
+    <path d="M 5 5 L 45 35 L 25 50 L -15 20 Z" fill="url(#cyanGrad)" />
+    <!-- Bottom Left Connector -->
+    <path d="M -5 5 L -45 35 L -25 50 L 15 20 Z" fill="url(#cyanGrad)" />
+  </g>
+  ` : ''}
+
+  ${state.showUIIcons ? `
+  <!-- Floating App UI Element Icons -->
+  <!-- Play Icon Box -->
+  <g transform="translate(375, 140)" filter="url(#neonGlow)">
+    <rect x="0" y="0" width="36" height="36" rx="10" fill="#091328" stroke="${state.neonPrimary}" stroke-width="1.5"/>
+    <polygon points="14,11 26,18 14,25" fill="${state.neonPrimary}"/>
+  </g>
+
+  <!-- Music Note Box -->
+  <g transform="translate(390, 200)" filter="url(#neonGlow)">
+    <rect x="0" y="0" width="32" height="32" rx="9" fill="#091328" stroke="${state.neonPrimary}" stroke-width="1.5"/>
+    <path d="M 18 10 L 22 10 L 22 20 A 3 3 0 1 1 19 17 L 19 12 L 14 13 L 14 22 A 3 3 0 1 1 11 19 L 11 11 Z" fill="${state.neonPrimary}"/>
+  </g>
+
+  <!-- Scissors Box -->
+  <g transform="translate(355, 255)" filter="url(#neonGlow)">
+    <rect x="0" y="0" width="34" height="34" rx="9" fill="#091328" stroke="${state.neonPrimary}" stroke-width="1.5"/>
+    <path d="M 10 12 A 2.5 2.5 0 1 0 10 17 A 2.5 2.5 0 1 0 10 12 Z M 10 21 A 2.5 2.5 0 1 0 10 26 A 2.5 2.5 0 1 0 10 21 Z M 13 15.5 L 24 11 M 13 22.5 L 24 27 M 15 19 L 20 19" stroke="${state.neonPrimary}" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+  </g>
+  ` : ''}
+
+  ${state.showCrown ? `
+  <!-- Gold Royal Crown above 'K' -->
+  <g transform="translate(285, 280) scale(0.85)" filter="url(#dropShadow)">
+    <path d="M 0 18 L 8 0 L 18 12 L 28 -4 L 38 12 L 48 0 L 56 18 Z" fill="url(#goldEdge)" />
+    <rect x="2" y="19" width="52" height="5" rx="2" fill="${state.goldStart}" />
+    <!-- Crown Jewels -->
+    <circle cx="8" cy="0" r="2.5" fill="#FFFFFF"/>
+    <circle cx="28" cy="-4" r="3" fill="#FFFFFF"/>
+    <circle cx="48" cy="0" r="2.5" fill="#FFFFFF"/>
+  </g>
+  ` : ''}
+
+  <!-- Main 'CapKut' Typography -->
+  <g filter="url(#dropShadow)">
+    <!-- Dark Gold 3D Backing/Shadow Text -->
+    <text x="258" y="373" 
+          font-family="'Satisfy', 'Brush Script MT', cursive, sans-serif" 
+          font-size="94" 
+          font-weight="bold" 
+          font-style="italic" 
+          text-anchor="middle" 
+          fill="#4A2300" 
+          stroke="#261100" 
+          stroke-width="12" 
+          stroke-linejoin="round">
+      CapKut
+    </text>
+
+    <!-- Outer Gold Border Text -->
+    <text x="256" y="370" 
+          font-family="'Satisfy', 'Brush Script MT', cursive, sans-serif" 
+          font-size="94" 
+          font-weight="bold" 
+          font-style="italic" 
+          text-anchor="middle" 
+          fill="none" 
+          stroke="url(#goldEdge)" 
+          stroke-width="7" 
+          stroke-linejoin="round">
+      CapKut
+    </text>
+
+    <!-- Front Glossy Gradient Text -->
+    <text x="256" y="370" 
+          font-family="'Satisfy', 'Brush Script MT', cursive, sans-serif" 
+          font-size="94" 
+          font-weight="bold" 
+          font-style="italic" 
+          text-anchor="middle" 
+          fill="url(#goldGrad)">
+      CapKut
+    </text>
+  </g>
+
+  <!-- Golden Bottom Banner Arc Accent -->
+  <path d="M 130 380 Q 256 425 382 380 Q 256 412 130 380 Z" fill="url(#goldEdge)" filter="url(#dropShadow)"/>
+
+</svg>`;
+    }
+
+    // Render Function
+    function render() {
+      const svgString = generateSVG();
+      svgContainer.innerHTML = svgString;
+      svgCodeArea.value = svgString;
+    }
+
+    // UI Event Listeners
+    document.getElementById('neonPrimary').addEventListener('input', (e) => {
+      state.neonPrimary = e.target.value;
+      render();
+    });
+
+    document.getElementById('neonSecondary').addEventListener('input', (e) => {
+      state.neonSecondary = e.target.value;
+      render();
+    });
+
+    document.getElementById('goldStart').addEventListener('input', (e) => {
+      state.goldStart = e.target.value;
+      render();
+    });
+
+    document.getElementById('goldEnd').addEventListener('input', (e) => {
+      state.goldEnd = e.target.value;
+      render();
+    });
+
+    document.getElementById('showCrown').addEventListener('change', (e) => {
+      state.showCrown = e.target.checked;
+      render();
+    });
+
+    document.getElementById('showEmblem').addEventListener('change', (e) => {
+      state.showEmblem = e.target.checked;
+      render();
+    });
+
+    document.getElementById('showFilm').addEventListener('change', (e) => {
+      state.showFilm = e.target.checked;
+      render();
+    });
+
+    document.getElementById('showUIIcons').addEventListener('change', (e) => {
+      state.showUIIcons = e.target.checked;
+      render();
+    });
+
+    document.getElementById('glowRange').addEventListener('input', (e) => {
+      state.glowIntensity = e.target.value;
+      document.getElementById('glowVal').innerText = `${e.target.value}%`;
+      render();
+    });
+
+    // Toggle Preview Background
+    document.getElementById('bgDark').addEventListener('click', () => {
+      svgContainer.className = "w-full max-w-[420px] aspect-square flex items-center justify-center p-4 rounded-xl transition-all duration-300 bg-transparent";
+    });
+
+    document.getElementById('bgTransparent').addEventListener('click', () => {
+      svgContainer.className = "w-full max-w-[420px] aspect-square flex items-center justify-center p-4 rounded-xl transition-all duration-300 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px] bg-slate-950/80 border border-slate-800";
+    });
+
+    // Reset Defaults
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      state.neonPrimary = '#00d2ff';
+      state.neonSecondary = '#0055ff';
+      state.goldStart = '#FFE259';
+      state.goldEnd = '#FFA751';
+      state.showCrown = true;
+      state.showEmblem = true;
+      state.showFilm = true;
+      state.showUIIcons = true;
+      state.glowIntensity = 100;
+
+      document.getElementById('neonPrimary').value = '#00d2ff';
+      document.getElementById('neonSecondary').value = '#0055ff';
+      document.getElementById('goldStart').value = '#FFE259';
+      document.getElementById('goldEnd').value = '#FFA751';
+      document.getElementById('showCrown').checked = true;
+      document.getElementById('showEmblem').checked = true;
+      document.getElementById('showFilm').checked = true;
+      document.getElementById('showUIIcons').checked = true;
+      document.getElementById('glowRange').value = 100;
+      document.getElementById('glowVal').innerText = '100%';
+
+      render();
+      showToast('Estilos restablecidos.');
+    });
+
+    // Tab Switching
+    const tabControlsBtn = document.getElementById('tabControlsBtn');
+    const tabCodeBtn = document.getElementById('tabCodeBtn');
+    const controlsPanel = document.getElementById('controlsPanel');
+    const codePanel = document.getElementById('codePanel');
+
+    tabControlsBtn.addEventListener('click', () => {
+      tabControlsBtn.className = "flex-1 py-2 px-4 rounded-lg text-xs font-bold transition bg-slate-800 text-cyan-400 shadow";
+      tabCodeBtn.className = "flex-1 py-2 px-4 rounded-lg text-xs font-bold transition text-slate-400 hover:text-slate-200";
+      controlsPanel.classList.remove('hidden');
+      codePanel.classList.add('hidden');
+    });
+
+    tabCodeBtn.addEventListener('click', () => {
+      tabCodeBtn.className = "flex-1 py-2 px-4 rounded-lg text-xs font-bold transition bg-slate-800 text-cyan-400 shadow";
+      tabControlsBtn.className = "flex-1 py-2 px-4 rounded-lg text-xs font-bold transition text-slate-400 hover:text-slate-200";
+      codePanel.classList.remove('hidden');
+      controlsPanel.classList.add('hidden');
+    });
+
+    // Copy SVG Code
+    document.getElementById('copyBtn').addEventListener('click', () => {
+      const code = generateSVG();
+      const textArea = document.createElement('textarea');
+      textArea.value = code;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      showToast('¡Código SVG copiado al portapapeles!');
+    });
+
+    // Download SVG File
+    document.getElementById('downloadBtn').addEventListener('click', () => {
+      const code = generateSVG();
+      const blob = new Blob([code], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'icon.svg';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      showToast('¡Archivo icon.svg descargado!');
+    });
+
+    // Toast Notification helper
+    function showToast(message) {
+      toastMsg.innerText = message;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3000);
+    }
+
+    // Initial Render
+    window.onload = () => {
+      render();
+    };
+  </script>
+</body>
+</html>
